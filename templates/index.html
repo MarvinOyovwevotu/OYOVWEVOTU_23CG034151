@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emotion Detection from Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        main {
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #e2f0d9;
+            border-left: 6px solid #4CAF50;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            text-align: center;
+        }
+        .result img {
+            margin-top: 15px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #ddd;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Real-Time Emotion Detection</h1>
+    </header>
+
+    <main>
+        <div class="instructions">
+            <h2>How to Use:</h2>
+            <ol>
+                <li>Click the "Choose File" button below to upload an image of a face.</li>
+                <li>Make sure the face is clear and well-lit.</li>
+                <li>Click "Upload & Detect" to see the predicted emotion.</li>
+                <li>The detected emotion will be displayed below the form along with your uploaded image.</li>
+            </ol>
+        </div>
+
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Upload & Detect</button>
+        </form>
+
+        {% if emotion %}
+        <div class="result">
+            <h2>Detected Emotion: <strong>{{ emotion }}</strong></h2>
+            <img src="{{ url_for('static', filename='uploaded_image.jpg') }}" alt="Uploaded Image" width="300">
+        </div>
+        {% endif %}
+
+        <div class="additional-info">
+            <h3>About This App</h3>
+            <p>
+                This web application uses a machine learning model to detect human emotions from images.
+                Supported emotions: Angry, Disgust, Fear, Happy, Neutral, Sad, Surprise.
+            </p>
+            <p>
+                Make sure your uploaded image is facing forward and not obstructed by sunglasses, masks, or extreme angles.
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 Emotion Detection App. Developed for educational purposes.
+    </footer>
+</body>
+</html>
